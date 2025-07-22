@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nemo Tech | Digital Landing Pages & Frontend Interfaces</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --transition: all 0.3s ease 0.1s;
+            --dot-color: rgba(255, 255, 255, 0.05);
+            --scroll-behavior: smooth;
+            --glass-bg: rgba(0, 0, 0, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --border-radius: 4px;
+            --card-radius: 8px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--pure-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--pure-black);
+            background-image: 
+                radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+            background-position: 0 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        section {
+            padding: 100px 5%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--pure-white);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-black);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--pure-white);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--pure-white);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--pure-white) !important;
+            color: var(--pure-black) !important;
+            opacity: 1 !important;
+        }
+
+        .nav-links a.cta-btn::after,
+        .mobile-menu a.cta-btn::after {
+            display: none !important;
+        }
+
+        .mobile-menu .cta-btn:hover {
+            background-color: var(--pure-white) !important;
+            color: var(--pure-black) !important;
+        }
+
+        .cta-btn {
+            border: 1px solid var(--pure-white);
+            padding: 10px 25px;
+            margin-left: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            color: var(--pure-white);
+            border-radius: var(--border-radius);
+        }
+
+        .cta-btn:hover {
+            background-color: var(--pure-white);
+            color: var(--pure-black);
+        }
+
+        .cta-btn:hover::after {
+            display: none;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: var(--pure-black);
+            padding: 20px 5%;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 999;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--pure-white);
+            text-decoration: none;
+            padding: 15px 0;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .mobile-menu .cta-btn {
+            margin: 15px 0 0;
+            display: inline-block;
+            width: fit-content;
+            border-radius: var(--border-radius);
+        }
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.hero-content {
+    width: 100%;
+    padding-top: 60px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    display: inline-block; /* Makes the heading only as wide as its content */
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    margin: 0 auto 40px;
+    opacity: 0.8;
+    display: inline-block; /* Makes the paragraph only as wide as its content */
+    white-space: nowrap; /* Prevents text wrapping */
+    max-width: 100%; /* Ensures it doesn't overflow on small screens */
+    overflow: hidden; /* Safety measure */
+    text-overflow: ellipsis; /* Adds ... if text is truncated */
+}
+
+/* For mobile devices - allow text to wrap */
+@media screen and (max-width: 768px) {
+    .hero h1,
+    .hero-description {
+        white-space: normal;
+        display: block;
+    }
+}
+
+        .hero-btn {
+            background-color: var(--pure-black);
+            border: 2px solid var(--pure-white);
+            color: var(--pure-white);
+            font-weight: 700;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+        }
+
+        .hero-btn:hover {
+            background-color: var(--pure-white);
+            color: var(--pure-black);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: var(--card-radius);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.05);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: var(--card-radius);
+        }
+
+        .portfolio-img {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+            filter: grayscale(100%);
+            overflow: hidden;
+        }
+
+        .portfolio-img a {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--pure-white);
+        }
+
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-img {
+            filter: grayscale(0%);
+        }
+
+        .portfolio-img:hover img {
+            transform: none;
+        }
+
+        .portfolio-info {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-item p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .outcome {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            background-color: rgba(255,255,255,0.05);
+            display: inline-block;
+            border-left: 2px solid var(--pure-white);
+            margin-bottom: 20px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tech-tag {
+            font-size: 0.8rem;
+            padding: 5px 15px;
+            border: 1px solid var(--pure-white);
+            border-radius: 20px;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: var(--card-radius);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+
+        .client-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--pure-white);
+            margin: 0 auto 20px;
+            overflow: hidden;
+            filter: grayscale(100%);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover .client-avatar {
+            filter: grayscale(0%);
+        }
+
+        .client-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .client-info h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .client-info p {
+            font-style: normal;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-form {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: var(--card-radius);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--pure-white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            border-radius: var(--border-radius);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        .contact-form button {
+            background: transparent;
+            border: 2px solid var(--pure-white);
+            color: var(--pure-white);
+            padding: 12px 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+        }
+
+        .contact-form button:hover {
+            background-color: var(--pure-white);
+            color: var(--pure-black);
+        }
+
+        .form-message {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid var(--pure-white);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            border-radius: var(--border-radius);
+        }
+
+        .form-message.show {
+            opacity: 1;
+        }
+
+        .contact-info {
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: var(--card-radius);
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            margin-bottom: 40px;
+        }
+
+        .contact-details p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-details i {
+            margin-right: 15px;
+            width: 20px;
+            opacity: 0.8;
+            margin-top: 3px;
+        }
+
+        .contact-details .detail-label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .contact-details .detail-value {
+            display: block;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--pure-white);
+            border-radius: 50%;
+            color: var(--pure-white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--pure-white);
+            color: var(--pure-black);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0,0,0,0.9);
+            padding: 60px 5% 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            opacity: 0.7;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 30px;
+            height: 1px;
+            background: var(--pure-white);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                padding-left: 0;
+                margin-top: 40px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            section {
+                padding: 80px 5%;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+                white-space: normal;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                white-space: normal;
+            }
+            
+            .mobile-menu {
+                top: 70px;
+            }
+            
+            .contact-form,
+            .contact-info {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Nemo Tech</a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact" class="btn cta-btn">Let's Talk</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact" class="btn cta-btn">Let's Talk</a>
+    </div>
+
+   <!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content fade-in">
+        <h1>Build a Website That Builds Your Brand.</h1>
+        <p>We deliver modern, high-performance websites that enhance brand presence and drive business results.</p>
+        <a href="#contact" class="btn hero-btn">Start Your Project</a>
+    </div>
+</section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Expertise</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Conversion-Ready Designs</h3>
+                    <p>Drives action with clear, high-converting layouts..</p>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Modern UI Development</h3>
+                    <p>Clean, fast, and scalable website interfaces.</p>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Conversion Architecture</h3>
+                    <p>Web structures that drive conversions.</p>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Search Optimization</h3>
+                    <p>Improves search ranking with SEO-focused design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-in">Work That Delivers</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-img">
+                        <a href="https://satyaprakashsamai.github.io/healinghut/" target="_blank">
+                            <img src="Healing Hut.webp" alt="Healing Hut">
+                        </a>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Healing Hut</h3>
+                        <p>Designed a calm, trust-building interface for therapy and mood tracking.</p>
+                        <div class="outcome">Focused on user clarity and emotional comfort.</div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-img">
+                        <a href="https://satyaprakashsamai.github.io/typespark/" target="_blank">
+                            <img src="TypeSpark.webp" alt="TypeSpark">
+                        </a>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>TypeSpark</h3>
+                        <p>Crafted a clean, distraction-free layout for typing practice.</p>
+                        <div class="outcome">Built for ease, speed, and habit formation.</div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-img">
+                        <a href="https://satyaprakashsamai.github.io/neocoin/" target="_blank">
+                            <img src="neocoin.webp" alt="NeoCoin">
+                        </a>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>NeoCoin</h3>
+                        <p>Developed a sleek interface for live market trading and analytics.</p>
+                        <div class="outcome">Emphasized responsiveness and professional-grade UI.</div>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title fade-in">Voices of Trust</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="client-avatar">
+                        <img src="C1.webp" alt="Rhea Malhotra">
+                    </div>
+                    <p>"Nemo Tech brought our mental wellness platform to life with a calming, responsive, and modern UI. Their attention to user flow and accessibility truly elevated our brand."</p>
+                    <div class="client-info">
+                        <h4>Rhea Malhotra</h4>
+                        <p>Founder, Healing Hut</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="client-avatar">
+                        <img src="C2.webp" alt="Aarav Mehta">
+                    </div>
+                    <p>"Nemo Tech crafted our typing app with smooth animations and a clean, responsive UI. Their frontend precision made our product fast, modern, and easy to use across devices."</p>
+                    <div class="client-info">
+                        <h4>Aarav Mehta</h4>
+                        <p>Creator, TypeSpark</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in">
+                    <div class="client-avatar">
+                        <img src="C3.webp" alt="Siddharth Rana">
+                    </div>
+                    <p>"From sleek layouts to real-time UI speed, Nemo Tech helped shape our fintech interface. Their work gave our crypto brand a bold, secure, and professional first impression."</p>
+                    <div class="client-info">
+                        <h4>Siddharth Rana</h4>
+                        <p>CTO, NeoCoin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Start the Conversation</h2>
+            <div class="contact-container">
+                <div class="contact-form fade-in">
+                    <form id="contactForm">
+                        <label for="name">Your Name & Organization</label>
+                        <input type="text" id="name" placeholder="e.g. Satya Prakash Samal, Nemo Tech" required>
+                        
+                        <label for="email">Organization Email</label>
+                        <input type="email" id="email" placeholder="e.g. hello@nemotech.com" required>
+                        
+                        <label for="phone">Organization Phone Number</label>
+                        <input type="tel" id="phone" placeholder="e.g. +91 99811 87267">
+                        
+                        <label for="message">How Can We Help?</label>
+                        <textarea id="message" placeholder="e.g. We’re looking for a frontend partner to build our company website." required></textarea>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
+                </div>
+                
+                <div class="contact-info fade-in">
+                    <h3>Contact Information</h3>
+                    <div class="contact-details">
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            <span class="detail-label">Email: </span>
+                            <span class="detail-value">ㅤcontact.satyaprakashsamal@gmail.com</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-phone"></i>
+                            <span class="detail-label">Phone: </span>
+                            <span class="detail-value">ㅤ+91 99811 87267</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="detail-label">Location:</span>
+                            <span class="detail-value">ㅤRaipur, Chhattisgarh, 492014</span>
+                        </p>
+                    </div>
+                    
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/satyaprakashsamal/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:contact.satyaprakashsamal@gmail.com" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">Nemo Tech</div>
+                    <p>Building digital experiences that establish trust and drive business growth through exceptional frontend solutions.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Landing Page Design</a></li>
+                        <li><a href="#">Frontend Development</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Conversion Optimization</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Nemo Tech. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Content protection and right-click disable
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                (e.ctrlKey && e.key === 'u') || 
+                (e.ctrlKey && e.key === 'U') ||
+                (e.ctrlKey && e.key === 's') ||
+                (e.ctrlKey && e.key === 'S') ||
+                (e.ctrlKey && e.key === 'c') ||
+                (e.ctrlKey && e.key === 'C')) {
+                e.preventDefault();
+            }
+        });
+
+        // Scroll animation implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fade-in animation on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Mobile menu toggle
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                hamburger.innerHTML = mobileMenu.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking on a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 50) {
+                    nav.style.padding = '15px 5%';
+                    nav.style.boxShadow = '0 5px 20px rgba(255,255,255,0.03)';
+                } else {
+                    nav.style.padding = '20px 5%';
+                    nav.style.boxShadow = 'none';
+                }
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show success message
+                formMessage.textContent = 'Thank you for reaching out! We\'ve received your message and will get back to you shortly.';
+                formMessage.classList.add('show');
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.classList.remove('show');
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
